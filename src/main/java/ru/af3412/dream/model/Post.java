@@ -4,10 +4,15 @@ import java.util.Objects;
 
 public class Post {
 
-    private final int id;
+    private int id;
     private final String name;
-    private final String description;
-    private final String created;
+    private String description;
+    private String created;
+
+    public Post(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Post(int id, String name, String description, String created) {
         this.id = id;
@@ -18,6 +23,10 @@ public class Post {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
