@@ -1,6 +1,7 @@
 package ru.af3412.dream.servlet;
 
 import ru.af3412.dream.model.Candidate;
+import ru.af3412.dream.store.MemStore;
 import ru.af3412.dream.store.Store;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class CandidateEditServlet extends HttpServlet {
 
-    private final static Store STORE = Store.instOf();
+    private final static Store STORE = MemStore.instOf();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

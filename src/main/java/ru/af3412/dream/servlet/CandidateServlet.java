@@ -1,6 +1,5 @@
 package ru.af3412.dream.servlet;
 
-import ru.af3412.dream.model.Candidate;
 import ru.af3412.dream.store.MemStore;
 
 import javax.servlet.ServletException;
