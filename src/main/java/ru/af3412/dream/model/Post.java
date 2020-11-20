@@ -62,4 +62,14 @@ public class Post {
         result = 31 * result + (created != null ? created.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", created='" + created + '\'' +
+                '}';
+    }
 }
