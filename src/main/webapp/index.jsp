@@ -26,7 +26,6 @@
 <div class="container">
     <div class="row">
         <ul class="nav">
-
             <li class="nav-item">
                 <a class="nav-link" href='<c:url value="/posts.do"/>'>Вакансии</a>
             </li>
@@ -38,6 +37,9 @@
             </li>
             <li>
                 <a class="nav-link" href='<c:url value="/candidate/edit.do"/>'>Добавить кандидата</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/login.jsp"/>'>Войти</a>
             </li>
         </ul>
     </div>
