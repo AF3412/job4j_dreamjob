@@ -23,6 +23,7 @@ public class CandidateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Collection<Candidate> allCandidates = STORE.findAllCandidates();
         req.setAttribute("candidates", allCandidates);
+        req.setAttribute("user", req.getSession().getAttribute("user"));
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 }

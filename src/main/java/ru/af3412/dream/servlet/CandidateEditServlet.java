@@ -24,6 +24,7 @@ public class CandidateEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Candidate candidate = getCandidateByRequest(req);
         req.setAttribute("candidate", candidate);
+        req.setAttribute("user", req.getSession().getAttribute("user"));
         req.getRequestDispatcher("edit.jsp").forward(req, resp);
     }
 

@@ -20,5 +20,6 @@ public class CandidateImageServlet extends HttpServlet {
         try (FileInputStream in = new FileInputStream(file)) {
             resp.getOutputStream().write(in.readAllBytes());
         }
+        req.setAttribute("user", req.getSession().getAttribute("user"));
     }
 }

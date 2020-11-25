@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.af3412.dream.model.Candidate" %>
 <%@ page import="ru.af3412.dream.store.PsqlStore" %>
@@ -29,7 +30,7 @@
                 Авторизация
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/auth.do" method="post">
+                <form action='<c:url value="/auth.do" /> ' method="post">
                     <div class="form-group">
                         <label>Почта</label>
                         <input type="text" class="form-control" name="email">
