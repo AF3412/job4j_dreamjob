@@ -36,12 +36,30 @@
                 </c:if>
             </div>
             <div class="card-body">
-                <form action='<c:url value="/candidate/edit.do?id=${candidate.id}"/>' method="post">
-                    <div class="form-group">
-                        <label for="name">Имя</label>
-                        <input type="text" class="form-control" name="name" id="name" value="${candidate.name}">
+                <form action='<c:url value="/candidate/edit.do?id=${candidate.id}"/>' method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col">
+                            <label for="name">Имя</label>
+                            <input type="text" class="form-control" name="name" id="name" value="${candidate.name}">
+                        </div>
+                        <div class="col">
+                            <label for="customFile">Фото</label>
+                            <div class="custom-file">
+                                <input type="file" name="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Выбери файл</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <img src='<c:url value="/candidateimage?photoId=${candidate.photoId}"/>' width="100px" height="100px"
+                                 alt="Фото кандидата">
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary mt-1">Сохранить</button>
+                            <button type="submit" class="btn btn-danger mt-1">Удалить</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

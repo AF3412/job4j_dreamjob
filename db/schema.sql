@@ -9,3 +9,9 @@ CREATE TABLE IF NOT EXISTS candidate (
    id SERIAL PRIMARY KEY,
    name TEXT
 );
+
+CREATE TABLE IF NOT EXISTS photo (
+    id serial PRIMARY KEY
+);
+
+ALTER TABLE candidate ADD COLUMN photo_id INT REFERENCES photo(id);

@@ -44,4 +44,12 @@
         <servlet-name>CandidateEditServlet</servlet-name>
         <url-pattern>/candidate/edit.do</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CandidateImageServlet</servlet-name>
+        <servlet-class>ru.af3412.dream.servlet.CandidateImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CandidateImageServlet</servlet-name>
+        <url-pattern>/candidateimage</url-pattern>
+    </servlet-mapping>
 </web-app>

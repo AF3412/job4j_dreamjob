@@ -29,7 +29,7 @@ public class PostEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        STORE.save(
+        STORE.savePost(
                 new Post(
                         Integer.parseInt(req.getParameter("id")),
                         req.getParameter("name")

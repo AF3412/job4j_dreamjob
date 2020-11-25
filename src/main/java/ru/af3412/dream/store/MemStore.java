@@ -41,7 +41,7 @@ public class MemStore implements Store {
     }
 
     @Override
-    public void save(Post post) {
+    public void savePost(Post post) {
         if (post.getId() == 0) {
             post.setId(POST_ID.incrementAndGet());
         }
@@ -49,11 +49,12 @@ public class MemStore implements Store {
     }
 
     @Override
-    public void save(Candidate candidate) {
+    public Candidate saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
             candidate.setId(CANDIDATE_ID.incrementAndGet());
         }
         candidates.put(candidate.getId(), candidate);
+        return candidate;
     }
 
     @Override
