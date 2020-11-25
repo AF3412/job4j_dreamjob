@@ -15,3 +15,10 @@ CREATE TABLE IF NOT EXISTS photo (
 );
 
 ALTER TABLE candidate ADD COLUMN photo_id INT REFERENCES photo(id);
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    password TEXT
+);

@@ -2,6 +2,7 @@ package ru.af3412.dream.store;
 
 import ru.af3412.dream.model.Candidate;
 import ru.af3412.dream.model.Post;
+import ru.af3412.dream.model.User;
 
 import java.util.Collection;
 import java.util.Map;
@@ -13,9 +14,11 @@ public class MemStore implements Store {
     private static final MemStore INST = new MemStore();
     private static final AtomicInteger POST_ID = new AtomicInteger(4);
     private static final AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
+    private static final AtomicInteger USER_ID = new AtomicInteger(4);
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final Map<Integer, User> users = new ConcurrentHashMap<>();
 
     private MemStore() {
         posts.put(1, new Post(1, "Junior Java Job", "desc 1", "2020 11 15"));
@@ -65,5 +68,24 @@ public class MemStore implements Store {
     @Override
     public Candidate findCandidateById(int id) {
         return candidates.get(id);
+    }
+
+    @Override
+    public User saveUser(User user) {
+        if (user.getId() == 0) {
+            user.setId(USER_ID.incrementAndGet());
+        }
+        users.put(user.getId(), user);
+        return user;
+    }
+
+    @Override
+    public User findById(int id) {
+        return users.get(id);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return null;
     }
 }
