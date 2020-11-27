@@ -22,3 +22,5 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT,
     password TEXT
 );
+
+INSERT INTO users (name, email, password) VALUES ('root', 'root@local', 'root');

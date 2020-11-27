@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.af3412.dream.model.Candidate" %>
-<%@ page import="ru.af3412.dream.store.PsqlStore" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,25 +21,49 @@
 </head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Авторизация
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/posts.do"/>'>Вакансии</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/candidates.do"/>'>Кандидаты</a>
+            </li>
+            <li>
+                <a class="nav-link" href='<c:url value="/post/edit.do"/>'>Добавить вакансию</a>
+            </li>
+            <li>
+                <a class="nav-link" href='<c:url value="/candidate/edit.do"/>'>Добавить кандидата</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/login.jsp"/>'>Войти</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 100%">
+                <div class="card-header">
+                    Авторизация или
+                    <a class="link" href='<c:url value="/reg.do"/>'>регистрация</a>
+                </div>
+                <div class="card-body">
+                    <form action='<c:url value="/auth.do" /> ' method="post">
+                        <div class="form-group">
+                            <label>Почта</label>
+                            <input type="text" class="form-control" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>Пароль</label>
+                            <input type="text" class="form-control" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </form>
+                </div>
             </div>
-            <div class="card-body">
-                <form action='<c:url value="/auth.do" /> ' method="post">
-                    <div class="form-group">
-                        <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
-                </form>
-            </div>
+        </div>
+        <div class="col">
+
         </div>
     </div>
 </div>

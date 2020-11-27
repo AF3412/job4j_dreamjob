@@ -22,27 +22,25 @@
 </head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+                <a class="nav-link" href='<c:url value="/posts.do"/>'>Вакансии</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+                <a class="nav-link" href='<c:url value="/candidates.do"/>'>Кандидаты</a>
+            </li>
+            <li>
+                <a class="nav-link" href='<c:url value="/post/edit.do"/>'>Добавить вакансию</a>
+            </li>
+            <li>
+                <a class="nav-link" href='<c:url value="/candidate/edit.do"/>'>Добавить кандидата</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+                <a class="nav-link" href='<c:url value="/login.jsp"/>'>Войти</a>
             </li>
         </ul>
     </div>
-
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
