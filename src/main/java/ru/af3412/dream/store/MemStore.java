@@ -6,6 +6,7 @@ import ru.af3412.dream.model.User;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -85,7 +86,7 @@ public class MemStore implements Store {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return null;
+    public Optional<User> findByEmail(String email) {
+        return Optional.empty();
     }
 }

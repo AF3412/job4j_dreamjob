@@ -5,6 +5,7 @@ import ru.af3412.dream.model.Post;
 import ru.af3412.dream.model.User;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface Store {
 
@@ -24,6 +25,6 @@ public interface Store {
 
     User findById(int id);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
 }

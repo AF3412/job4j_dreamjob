@@ -210,7 +210,7 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "SELECT u.* FROM users u WHERE u.email = ?")
@@ -218,18 +218,18 @@ public class PsqlStore implements Store {
             ps.setString(1, email);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    return new User(
+                    return Optional.of(new User(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
                             resultSet.getString("email"),
                             resultSet.getString("password")
-                    );
+                    ));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     private User createUser(User user) throws SQLException {
