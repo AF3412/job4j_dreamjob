@@ -20,6 +20,7 @@ import java.io.IOException;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -35,9 +36,9 @@ public class PostEditServletTest {
         when(req.getSession()).thenReturn(session);
         when(req.getParameter("id")).thenReturn(null);
         when(req.getRequestDispatcher("edit.jsp")).thenReturn(dispatcher);
-        PostEditServlet postEditServlet = new PostEditServlet();
-        postEditServlet.doGet(req, resp);
-        assertThat(((Post) req.getAttribute("post")).getId(), is(0));
+        new PostEditServlet().doGet(req, resp);
+        verify(dispatcher).forward(req, resp);
+        verify(req).setAttribute("post", new Post(0, ""));
     }
 
     @Test
