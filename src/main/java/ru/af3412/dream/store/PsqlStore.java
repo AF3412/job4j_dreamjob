@@ -2,6 +2,7 @@ package ru.af3412.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import ru.af3412.dream.model.Candidate;
+import ru.af3412.dream.model.City;
 import ru.af3412.dream.model.Post;
 import ru.af3412.dream.model.User;
 
@@ -74,9 +75,11 @@ public class PsqlStore implements Store {
     @Override
     public Collection<Candidate> findAllCandidates() {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(
-                     "SELECT c.*, coalesce(p.id, 0) photo_id FROM candidate c LEFT JOIN photo p ON p.id = c.photo_id")
-        ) {
+             PreparedStatement ps = cn.prepareStatement("""
+                     SELECT c.*, COALESCE(p.id, 0), COALESCE(ct.id, 0) photo_id FROM candidate c 
+                     LEFT JOIN photo p ON p.id = c.photo_id
+                     LEFT JOIN city ct ON ct.id = c.city_id"""
+             )) {
             try (ResultSet resultSet = ps.executeQuery()) {
                 List<Candidate> candidates = new ArrayList<>();
                 while (resultSet.next()) {
@@ -84,7 +87,8 @@ public class PsqlStore implements Store {
                             new Candidate(
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
-                                    resultSet.getInt("photo_id")
+                                    resultSet.getInt("photo_id"),
+                                    resultSet.getInt("city_id")
                             )
                     );
                 }
@@ -153,16 +157,19 @@ public class PsqlStore implements Store {
     @Override
     public Candidate findCandidateById(int id) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(
-                     "SELECT c.*, coalesce(p.id, 0) photo_id FROM candidate c LEFT JOIN photo p ON p.id = c.photo_id AND c.id = ?")
-        ) {
+             PreparedStatement ps = cn.prepareStatement("""
+                     SELECT c.*, COALESCE(p.id, 0) photo_id FROM candidate c 
+                     LEFT JOIN photo p ON p.id = c.photo_id AND c.id = ?
+                     LEFT JOIN city ct ON ct.id = c.city_id"""
+             )) {
             ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     return new Candidate(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getInt("photo_id")
+                            resultSet.getInt("photo_id"),
+                            resultSet.getInt("city_id")
                     );
                 }
             }
@@ -232,6 +239,47 @@ public class PsqlStore implements Store {
         return Optional.empty();
     }
 
+    @Override
+    public List<City> findAllCities() {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "SELECT * FROM city ORDER BY id"
+             )) {
+            try (ResultSet resultSet = ps.executeQuery()) {
+                List<City> cities = new ArrayList<>();
+                while (resultSet.next()) {
+                    cities.add(
+                            new City(
+                                    resultSet.getInt("id"),
+                                    resultSet.getString("name")
+                            )
+                    );
+                }
+                return cities;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public City addCity(City newCity) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO city (name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, newCity.getName());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    return new City(id.getInt(1), newCity.getName());
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return newCity;
+    }
+
     private User createUser(User user) throws SQLException {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =
@@ -267,10 +315,12 @@ public class PsqlStore implements Store {
         candidate.setPhotoId(createPhotoId());
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =
-                     cn.prepareStatement("INSERT INTO candidate(name, photo_id) VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS)
+                     cn.prepareStatement("INSERT INTO candidate(name, photo_id, city_id) VALUES (?, ?, ?)",
+                             PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getPhotoId());
+            ps.setInt(3, candidate.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -283,10 +333,11 @@ public class PsqlStore implements Store {
 
     private Candidate updateCandidate(Candidate candidate) throws SQLException {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE candidate SET name = (?) WHERE id = ?")
+             PreparedStatement ps = cn.prepareStatement("UPDATE candidate SET name = (?), city_id = (?) WHERE id = ?")
         ) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setInt(2, candidate.getCityId());
+            ps.setInt(3, candidate.getId());
             ps.execute();
         }
         return candidate;

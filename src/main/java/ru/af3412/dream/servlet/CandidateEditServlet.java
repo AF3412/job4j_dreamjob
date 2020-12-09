@@ -25,6 +25,7 @@ public class CandidateEditServlet extends HttpServlet {
         Candidate candidate = getCandidateByRequest(req);
         req.setAttribute("candidate", candidate);
         req.setAttribute("user", req.getSession().getAttribute("user"));
+        req.setAttribute("cities", STORE.findAllCities());
         req.getRequestDispatcher("edit.jsp").forward(req, resp);
     }
 
@@ -34,7 +35,8 @@ public class CandidateEditServlet extends HttpServlet {
         Candidate candidate = STORE.saveCandidate(
                 new Candidate(
                         Integer.parseInt(req.getParameter("id")),
-                        req.getParameter("name"))
+                        req.getParameter("name"),
+                        Integer.parseInt(req.getParameter("city")))
         );
         saveFileFromRequestForCandidate(req, candidate);
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
@@ -42,7 +44,7 @@ public class CandidateEditServlet extends HttpServlet {
 
     private Candidate getCandidateByRequest(HttpServletRequest req) {
         if (req.getParameter("id") == null) {
-            return new Candidate(0, "", 0);
+            return new Candidate(0, "", 0, 0);
         }
         return STORE.findCandidateById(Integer.parseInt(req.getParameter("id")));
     }
@@ -51,6 +53,9 @@ public class CandidateEditServlet extends HttpServlet {
         Part filePart = req.getPart("file");
         try (InputStream fileContent = filePart.getInputStream()) {
             File folder = new File("images");
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
             File file = new File(folder + File.separator + candidate.getPhotoId() + ".png");
             try (FileOutputStream out = new FileOutputStream(file)) {
                 out.write(fileContent.readAllBytes());

@@ -38,6 +38,9 @@
             <li>
                 <a class="nav-link" href='<c:url value="/candidate/edit.do"/>'>Добавить кандидата</a>
             </li>
+            <li>
+                <a class="nav-link" href='<c:url value="/cities.do"/>'>Города</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href='<c:url value="/login.jsp"/>'>Войти</a>
             </li>

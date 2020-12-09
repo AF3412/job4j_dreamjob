@@ -65,6 +65,9 @@
                             <td>
                                 <img src='<c:url value="/candidateimage?photoId=${candidate.photoId}"/>' width="100px" height="100px">
                             </td>
+                            <td>
+                                <c:out value="${candidate.cityId}"/>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

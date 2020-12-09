@@ -1,10 +1,12 @@
 package ru.af3412.dream.store;
 
 import ru.af3412.dream.model.Candidate;
+import ru.af3412.dream.model.City;
 import ru.af3412.dream.model.Post;
 import ru.af3412.dream.model.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -88,5 +90,15 @@ public class MemStore implements Store {
     @Override
     public Optional<User> findByEmail(String email) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<City> findAllCities() {
+        return List.of(new City(1, "Москва"), new City(2, "New York"));
+    }
+
+    @Override
+    public City addCity(City newCity) {
+        return newCity;
     }
 }

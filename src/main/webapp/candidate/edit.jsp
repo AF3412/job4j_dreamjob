@@ -74,10 +74,21 @@
                             <img src='<c:url value="/candidateimage?photoId=${candidate.photoId}"/>' width="100px" height="100px"
                                  alt="Фото кандидата">
                         </div>
+                        <div class="col">
+                            <label for="city">Город</label>
+                                <select class="browser-default custom-select" id="city" name="city">
+                                    <option selected value="0">Выберите город</option>
+                                    <c:forEach items="${cities}" var="city">
+                                        <option value="${city.id}" ${city.id == candidate.cityId ? 'selected' : ''}>
+                                            ${city.name}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button type="submit" class="btn btn-primary mt-1">Сохранить</button>
+                            <button id="save" type="submit" class="btn btn-primary mt-1">Сохранить</button>
                             <button type="submit" class="btn btn-danger mt-1">Удалить</button>
                         </div>
                     </div>
@@ -86,5 +97,6 @@
         </div>
     </div>
 </div>
+<script src="<c:url value="/js/candidateedit.js"/>"></script>
 </body>
 </html>

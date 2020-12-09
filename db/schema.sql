@@ -24,3 +24,13 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (name, email, password) VALUES ('root', 'root@local', 'root');
+
+CREATE TABLE IF NOT EXISTS city
+(
+    id SERIAL PRIMARY KEY,
+    name TEXT
+);
+
+INSERT INTO city (name) VALUES ('Москва'), ('Санкт-Петербург'), ('Екатеринбург');
+
+ALTER TABLE candidate ADD COLUMN city_id INT REFERENCES city(id);

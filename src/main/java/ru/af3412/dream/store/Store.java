@@ -1,10 +1,12 @@
 package ru.af3412.dream.store;
 
 import ru.af3412.dream.model.Candidate;
+import ru.af3412.dream.model.City;
 import ru.af3412.dream.model.Post;
 import ru.af3412.dream.model.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface Store {
@@ -27,4 +29,7 @@ public interface Store {
 
     Optional<User> findByEmail(String email);
 
+    List<City> findAllCities();
+
+    City addCity(City newCity);
 }

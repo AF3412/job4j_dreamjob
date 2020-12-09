@@ -1,13 +1,11 @@
 package ru.af3412.dream.store;
 
 import ru.af3412.dream.model.Candidate;
+import ru.af3412.dream.model.City;
 import ru.af3412.dream.model.Post;
 import ru.af3412.dream.model.User;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class StoreStub implements Store {
 
@@ -57,5 +55,15 @@ public class StoreStub implements Store {
     @Override
     public Optional<User> findByEmail(String email) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<City> findAllCities() {
+        return null;
+    }
+
+    @Override
+    public City addCity(City newCity) {
+        return newCity;
     }
 }
