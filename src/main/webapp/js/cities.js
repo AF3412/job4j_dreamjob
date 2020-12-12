@@ -1,4 +1,4 @@
-const URL = '/dreamjob/cities.do';
+const URL = 'http://localhost:8080/dreamjob/cities.do';
 
 const addCityBtn = document.getElementById("add_city");
 const cityNameInput = document.getElementById("new_city");

@@ -84,4 +84,12 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>CORSFilter</filter-name>
+        <filter-class>ru.af3412.dream.filter.CORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CORSFilter</filter-name>
+        <url-pattern>/dreamjob/*</url-pattern>
+    </filter-mapping>
 </web-app>
