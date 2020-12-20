@@ -1,26 +1,22 @@
 package ru.af3412.dream.filter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CORSFilter implements Filter {
+public class CORSFilter extends HttpFilter {
+
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        res.addHeader("Access-Control-Allow-Origin", "*");
+        res.addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
 
-        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", "*");
-        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
-
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
-        if (request.getMethod().equals("OPTIONS")) {
-            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        if (req.getMethod().equals("OPTIONS")) {
+            res.setStatus(HttpServletResponse.SC_ACCEPTED);
             return;
         }
-
-        chain.doFilter(request, servletResponse);
+        chain.doFilter(req, res);
     }
-
 }

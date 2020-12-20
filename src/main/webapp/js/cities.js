@@ -9,9 +9,6 @@ addCityBtn.onclick = function () {
     }
     fetch(URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
         body: JSON.stringify(newCityName)
     })
         .then(response => response.json())

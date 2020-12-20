@@ -6,17 +6,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AuthFilter implements Filter {
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String uri = req.getRequestURI();
-        if (uri.endsWith("auth.do") || uri.endsWith("reg.do")) {
+        if (uri.endsWith("auth.do") || uri.endsWith("reg.do") || uri.endsWith("cities.do")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -27,8 +23,4 @@ public class AuthFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }
